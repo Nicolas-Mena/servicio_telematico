@@ -1,14 +1,27 @@
-from flask import Flask, jsonify
+import random
 
-app = Flask(__name__)
+def jugar():
+    numero_secreto = random.randint(1, 10)
+    intentos = 3
 
-@app.route('/')
-def home():
-    return jsonify({"mensaje": "¡Servicio telemático en producción!"})
+    print("🎮 ¡Bienvenido al juego de Adivina el Número!")
+    print("Tienes 3 intentos para adivinar un número del 1 al 10.")
 
-@app.route('/saludo/<nombre>')
-def saludo(nombre):
-    return jsonify({"saludo": f"Hola, {nombre}. Bienvenido al servicio telemático."})
+    while intentos > 0:
+        try:
+            adivina = int(input("Ingresa tu número: "))
+        except ValueError:
+            print("❌ Solo se permiten números.")
+            continue
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+        if adivina == numero_secreto:
+            print("🎉 ¡Felicidades! ¡Adivinaste el número! Caz nunca cambies sos el mejor")
+            return
+        else:
+            intentos -= 1
+            print(f"❌ paila Incorrecto. Te quedan {intentos} intento(s).")
+
+    print(f"😢 Se acabaron los intentos. El número era Caz gracias por todo {numero_secreto}.")
+
+if __name__ == "__main__":
+    jugar()
